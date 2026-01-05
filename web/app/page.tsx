@@ -1,9 +1,10 @@
+import { groq } from "next-sanity";
 import { client } from "@/lib/sanity";
 import type { Article } from "@studio/sanity.types";
 
 async function getArticles(): Promise<Article[]> {
   const articles = await client.fetch<Article[]>(
-    `*[_type == "article"] | order(publishedAt desc) {
+    groq`*[_type == "article"] | order(publishedAt desc) {
       _id,
       _type,
       title,

@@ -25,7 +25,6 @@ export default defineType({
       name: "publishedAt",
       type: "datetime",
       title: "Published at",
-      validation: (rule) => rule.required(),
     },
     {
       name: "excerpt",

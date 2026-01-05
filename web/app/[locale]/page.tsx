@@ -2,6 +2,7 @@ import { groq } from "next-sanity";
 import { client } from "@/lib/sanity";
 import type { Article } from "@studio/sanity.types";
 import { getTranslations } from "next-intl/server";
+import Link from "next/link";
 
 async function getArticles(locale: string): Promise<Article[]> {
   try {
@@ -49,11 +50,13 @@ export default async function Home({
         </h1>
         <ul className="space-y-4">
           {articles.map((article) => (
-            <li
-              key={article._id}
-              className="text-lg text-black dark:text-zinc-50"
-            >
-              {article.title || "Untitled"}
+            <li key={article._id}>
+              <Link
+                href={`/${locale}/articles/${article.slug?.current || ""}`}
+                className="text-lg text-black dark:text-zinc-50 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                {article.title || "Untitled"}
+              </Link>
             </li>
           ))}
         </ul>

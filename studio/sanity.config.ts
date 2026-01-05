@@ -9,8 +9,8 @@ export default defineConfig({
   name: "default",
   title: "Exove demo",
 
-  projectId: "ga0hlsoj",
-  dataset: "dev",
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID!,
+  dataset: process.env.SANITY_STUDIO_DATASET!,
 
   plugins: [
     structureTool({structure}),

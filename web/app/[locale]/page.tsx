@@ -1,6 +1,7 @@
 import { groq } from "next-sanity";
 import { client } from "@/lib/sanity";
 import type { Article } from "@studio/sanity.types";
+import { getTranslations } from "next-intl/server";
 
 async function getArticles(): Promise<Article[]> {
   try {
@@ -24,13 +25,14 @@ async function getArticles(): Promise<Article[]> {
 }
 
 export default async function Home() {
+  const t = await getTranslations("frontPage");
   const articles = await getArticles();
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex min-h-screen w-full max-w-3xl flex-col py-32 px-16 bg-white dark:bg-black">
         <h1 className="text-3xl font-semibold mb-8 text-black dark:text-zinc-50">
-          Articles
+          {t("articles")}
         </h1>
         <ul className="space-y-4">
           {articles.map((article) => (

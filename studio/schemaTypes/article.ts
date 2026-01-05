@@ -6,6 +6,13 @@ export default defineType({
   title: "Article",
   fields: [
     {
+      name: "language",
+      type: "string",
+      title: "Language",
+      readOnly: true,
+      hidden: true,
+    },
+    {
       name: "title",
       type: "string",
       title: "Title",

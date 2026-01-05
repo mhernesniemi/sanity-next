@@ -45,12 +45,41 @@ export type LargeFeaturedPost = {
   linkText?: string;
 };
 
+export type TranslationMetadata = {
+  _id: string;
+  _type: "translation.metadata";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  translations?: InternationalizedArrayReference;
+  schemaTypes?: Array<string>;
+};
+
+export type InternationalizedArrayReference = Array<
+  {
+    _key: string;
+  } & InternationalizedArrayReferenceValue
+>;
+
+export type FrontPageReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "frontPage";
+};
+
+export type InternationalizedArrayReferenceValue = {
+  _type: "internationalizedArrayReferenceValue";
+  value?: ArticleReference | FrontPageReference;
+};
+
 export type FrontPage = {
   _id: string;
   _type: "frontPage";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  language?: string;
   title?: string;
   components?: Array<
     | ({
@@ -75,6 +104,7 @@ export type Article = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  language?: string;
   title?: string;
   slug?: Slug;
   publishedAt?: string;
@@ -240,6 +270,10 @@ export type AllSanitySchemaTypes =
   | ArticleReference
   | SmallFeaturedPost
   | LargeFeaturedPost
+  | TranslationMetadata
+  | InternationalizedArrayReference
+  | FrontPageReference
+  | InternationalizedArrayReferenceValue
   | FrontPage
   | SanityImageAssetReference
   | Article

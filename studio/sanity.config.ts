@@ -20,7 +20,8 @@ export default defineConfig({
         {id: "fi", title: "Finnish"},
         {id: "en", title: "English"},
       ],
-      schemaTypes: ["article"],
+      schemaTypes: ["article", "frontPage"],
+      languageField: "language",
     }),
   ],
 

@@ -3,10 +3,10 @@ import { client } from "@/lib/sanity";
 import type { Article } from "@studio/sanity.types";
 import { getTranslations } from "next-intl/server";
 
-async function getArticles(): Promise<Article[]> {
+async function getArticles(locale: string): Promise<Article[]> {
   try {
     const articles = await client.fetch<Article[]>(
-      groq`*[_type == "article"] | order(publishedAt desc) {
+      groq`*[_type == "article" && language == $locale] | order(publishedAt desc) {
         _id,
         _type,
         title,
@@ -14,8 +14,16 @@ async function getArticles(): Promise<Article[]> {
         publishedAt,
         excerpt,
         mainImage,
-        content
-      }`
+        content,
+        language,
+        "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
+          _id,
+          title,
+          slug,
+          language
+        }
+      }`,
+      { locale }
     );
     return articles;
   } catch (error) {
@@ -31,7 +39,7 @@ export default async function Home({
 }) {
   const { locale } = await params;
   const t = await getTranslations("frontPage");
-  const articles = await getArticles();
+  const articles = await getArticles(locale);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">

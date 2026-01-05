@@ -24,7 +24,12 @@ async function getArticles(): Promise<Article[]> {
   }
 }
 
-export default async function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const t = await getTranslations("frontPage");
   const articles = await getArticles();
 

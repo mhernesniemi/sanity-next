@@ -1,5 +1,9 @@
 {
   "frontPage": {
     "articles": "Articles"
+  },
+  "error": {
+    "title": "Something went wrong!",
+    "tryAgain": "Try again"
   }
 }

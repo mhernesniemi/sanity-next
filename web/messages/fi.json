@@ -1,5 +1,9 @@
 {
   "frontPage": {
     "articles": "Artikkelit"
+  },
+  "error": {
+    "title": "Jotain meni pieleen!",
+    "tryAgain": "Yritä uudelleen"
   }
 }

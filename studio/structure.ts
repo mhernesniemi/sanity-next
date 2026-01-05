@@ -6,8 +6,8 @@ export const structure = (S: StructureBuilder) =>
     .items([
       S.listItem()
         .title('Front Page')
-        .id('frontPage')
-        .child(S.document().schemaType('frontPage').documentId('frontPage')),
+        .id('homepage')
+        .child(S.document().schemaType('frontPage').documentId('homepage')),
       ...S.documentTypeListItems().filter(
         (listItem) => !['frontPage'].includes(listItem.getId() || ''),
       ),

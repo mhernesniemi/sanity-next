@@ -18,6 +18,7 @@ export default defineType({
       title: "Page Title",
       initialValue: "Front Page",
       readOnly: true,
+      hidden: true,
     },
     {
       name: "components",

@@ -13,6 +13,32 @@
  */
 
 // Source: schema.json
+export type ArticleReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "article";
+};
+
+export type FrontPageReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "frontPage";
+};
+
+export type Link = {
+  type?: "internal" | "external";
+  internal?: ArticleReference | FrontPageReference;
+  external?: string;
+};
+
+export type ObjectLink = {
+  type?: "internal" | "external";
+  internal?: ArticleReference | FrontPageReference;
+  external?: string;
+};
+
 export type SmallFeaturedPosts = {
   _type: "smallFeaturedPosts";
   posts?: Array<
@@ -20,13 +46,6 @@ export type SmallFeaturedPosts = {
       _key: string;
     } & SmallFeaturedPost
   >;
-};
-
-export type ArticleReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "article";
 };
 
 export type SmallFeaturedPost = {
@@ -45,6 +64,17 @@ export type LargeFeaturedPost = {
   linkText?: string;
 };
 
+export type MainMenuItem = {
+  _type: "mainMenuItem";
+  label?: string;
+  link?: Link;
+  sublinks?: Array<{
+    label?: string;
+    link?: ObjectLink;
+    _key: string;
+  }>;
+};
+
 export type TranslationMetadata = {
   _id: string;
   _type: "translation.metadata";
@@ -61,16 +91,31 @@ export type InternationalizedArrayReference = Array<
   } & InternationalizedArrayReferenceValue
 >;
 
-export type FrontPageReference = {
+export type MainMenuReference = {
   _ref: string;
   _type: "reference";
   _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "frontPage";
+  [internalGroqTypeReferenceTo]?: "mainMenu";
 };
 
 export type InternationalizedArrayReferenceValue = {
   _type: "internationalizedArrayReferenceValue";
-  value?: ArticleReference | FrontPageReference;
+  value?: ArticleReference | FrontPageReference | MainMenuReference;
+};
+
+export type MainMenu = {
+  _id: string;
+  _type: "mainMenu";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  language?: string;
+  title?: string;
+  items?: Array<
+    {
+      _key: string;
+    } & MainMenuItem
+  >;
 };
 
 export type FrontPage = {
@@ -266,14 +311,19 @@ export type Geopoint = {
 };
 
 export type AllSanitySchemaTypes =
-  | SmallFeaturedPosts
   | ArticleReference
+  | FrontPageReference
+  | Link
+  | ObjectLink
+  | SmallFeaturedPosts
   | SmallFeaturedPost
   | LargeFeaturedPost
+  | MainMenuItem
   | TranslationMetadata
   | InternationalizedArrayReference
-  | FrontPageReference
+  | MainMenuReference
   | InternationalizedArrayReferenceValue
+  | MainMenu
   | FrontPage
   | SanityImageAssetReference
   | Article

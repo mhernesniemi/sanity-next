@@ -20,7 +20,7 @@ export default defineConfig({
         {id: "fi", title: "Finnish"},
         {id: "en", title: "English"},
       ],
-      schemaTypes: ["article", "frontPage"],
+      schemaTypes: ["article", "frontPage", "mainMenu"],
       languageField: "language",
     }),
   ],
@@ -28,14 +28,17 @@ export default defineConfig({
   document: {
     newDocumentOptions: (prev, context) => {
       if (context.creationContext.type === "global") {
-        return prev.filter((templateItem) => templateItem.templateId !== "frontPage");
+        return prev.filter(
+          (templateItem) =>
+            templateItem.templateId !== "frontPage" && templateItem.templateId !== "mainMenu",
+        );
       }
 
       return prev;
     },
     actions: (prev, context) => {
-      // Prevent deletion of frontPage singleton
-      if (context.schemaType === "frontPage") {
+      // Prevent deletion of frontPage and mainMenu singletons
+      if (context.schemaType === "frontPage" || context.schemaType === "mainMenu") {
         return prev.filter((action) => action.action !== "delete");
       }
       return prev;

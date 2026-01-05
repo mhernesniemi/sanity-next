@@ -8,7 +8,11 @@ export const structure = (S: StructureBuilder) =>
         .title('Front Page')
         .id('homepage')
         .child(S.document().schemaType('frontPage').documentId('homepage')),
+      S.listItem()
+        .title('Main Menu')
+        .id('mainmenu')
+        .child(S.document().schemaType('mainMenu').documentId('mainmenu')),
       ...S.documentTypeListItems().filter(
-        (listItem) => !['frontPage'].includes(listItem.getId() || ''),
+        (listItem) => !['frontPage', 'mainMenu'].includes(listItem.getId() || ''),
       ),
     ])

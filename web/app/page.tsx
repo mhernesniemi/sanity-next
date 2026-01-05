@@ -3,19 +3,24 @@ import { client } from "@/lib/sanity";
 import type { Article } from "@studio/sanity.types";
 
 async function getArticles(): Promise<Article[]> {
-  const articles = await client.fetch<Article[]>(
-    groq`*[_type == "article"] | order(publishedAt desc) {
-      _id,
-      _type,
-      title,
-      slug,
-      publishedAt,
-      excerpt,
-      mainImage,
-      content
-    }`
-  );
-  return articles;
+  try {
+    const articles = await client.fetch<Article[]>(
+      groq`*[_type == "article"] | order(publishedAt desc) {
+        _id,
+        _type,
+        title,
+        slug,
+        publishedAt,
+        excerpt,
+        mainImage,
+        content
+      }`
+    );
+    return articles;
+  } catch (error) {
+    console.error("Failed to fetch articles:", error);
+    throw new Error("Failed to load articles");
+  }
 }
 
 export default async function Home() {

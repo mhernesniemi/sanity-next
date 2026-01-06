@@ -1,12 +1,13 @@
 import MainMenu from "@/components/MainMenu";
-import {getMainMenu} from "@/lib/mainMenu";
+import { getMainMenu } from "@/lib/mainMenu";
 import Link from "next/link";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 type HeaderProps = {
   locale: string;
 };
 
-export default async function Header({locale}: HeaderProps) {
+export default async function Header({ locale }: HeaderProps) {
   const mainMenu = await getMainMenu(locale);
 
   return (
@@ -21,8 +22,8 @@ export default async function Header({locale}: HeaderProps) {
         {mainMenu?.items && mainMenu.items.length > 0 && (
           <MainMenu items={mainMenu.items} />
         )}
+        <LanguageSwitcher />
       </div>
     </header>
   );
 }
-

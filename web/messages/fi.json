@@ -5,5 +5,10 @@
   "error": {
     "title": "Jotain meni pieleen!",
     "tryAgain": "Yritä uudelleen"
+  },
+  "languageSwitcher": {
+    "switchLanguage": "Vaihda kieli",
+    "fi": "Suomi",
+    "en": "English"
   }
 }

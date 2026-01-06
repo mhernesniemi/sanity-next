@@ -5,5 +5,10 @@
   "error": {
     "title": "Something went wrong!",
     "tryAgain": "Try again"
+  },
+  "languageSwitcher": {
+    "switchLanguage": "Switch language",
+    "fi": "Suomi",
+    "en": "English"
   }
 }

@@ -1,20 +1,34 @@
 "use client";
 
-import { Menu, MenuButton, MenuItem, MenuItems, Transition } from "@headlessui/react";
+import {
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+  Transition,
+} from "@headlessui/react";
 import { CheckIcon, LanguageIcon } from "@heroicons/react/24/outline";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
 import { Fragment } from "react";
+import { useTranslationUrls } from "@/components/TranslationContext";
 
 export default function LanguageSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations("languageSwitcher");
   const locale = useLocale();
+  const translationUrls = useTranslationUrls();
 
   const handleLocaleChange = (newLocale: string) => {
-    const newPath = pathname.replace(`/${locale}`, `/${newLocale}`);
-    router.push(newPath);
+    // Use translation URL if available, otherwise fall back to simple locale swap
+    const translatedUrl = translationUrls[newLocale];
+    if (translatedUrl) {
+      router.push(translatedUrl);
+    } else {
+      const newPath = pathname.replace(`/${locale}`, `/${newLocale}`);
+      router.push(newPath);
+    }
   };
 
   return (
@@ -48,7 +62,9 @@ export default function LanguageSwitcher() {
                 className="flex w-full items-center gap-2 px-4 py-2 text-sm data-[focus]:bg-stone-700"
               >
                 <div className="w-4">
-                  {locale === "fi" && <CheckIcon className="h-4 w-4 text-amber-500" />}
+                  {locale === "fi" && (
+                    <CheckIcon className="h-4 w-4 text-amber-500" />
+                  )}
                 </div>
                 <span lang="fi">Suomi</span>
               </button>
@@ -59,7 +75,9 @@ export default function LanguageSwitcher() {
                 className="flex w-full items-center gap-2 px-4 py-2 text-sm data-[focus]:bg-stone-700"
               >
                 <div className="w-4">
-                  {locale === "en" && <CheckIcon className="h-4 w-4 text-amber-500" />}
+                  {locale === "en" && (
+                    <CheckIcon className="h-4 w-4 text-amber-500" />
+                  )}
                 </div>
                 <span lang="en">English</span>
               </button>

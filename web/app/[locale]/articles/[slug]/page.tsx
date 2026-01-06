@@ -7,6 +7,7 @@ import Image from "next/image";
 import { urlFor } from "@/lib/sanity";
 import { notFound } from "next/navigation";
 import { portableTextComponents } from "@/components/portableTextComponents";
+import SetTranslationUrls from "@/components/SetTranslationUrls";
 
 async function getArticle(
   slug: string,
@@ -56,8 +57,20 @@ export default async function ArticlePage({
     ? urlFor(article.mainImage).width(1200).height(600).url()
     : null;
 
+  // Build translation URLs from Sanity's translation metadata
+  const translationUrls: Record<string, string> = {};
+  const translations = (article as { _translations?: Array<{ language?: string; slug?: { current?: string } }> })._translations;
+  if (translations) {
+    for (const t of translations) {
+      if (t.language && t.slug?.current) {
+        translationUrls[t.language] = `/${t.language}/articles/${t.slug.current}`;
+      }
+    }
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+      <SetTranslationUrls urls={translationUrls} />
       <main className="flex min-h-screen w-full max-w-4xl flex-col py-32 px-16 bg-white dark:bg-black">
         <article>
           {imageUrl && (

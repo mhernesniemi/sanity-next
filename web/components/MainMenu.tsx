@@ -2,6 +2,7 @@
 
 import {
   Popover,
+  PopoverBackdrop,
   PopoverButton,
   PopoverPanel,
   PopoverGroup,
@@ -92,6 +93,7 @@ function MainMenuDropdownItem({
           />
         </svg>
       </PopoverButton>
+      <PopoverBackdrop className="fixed inset-0 z-40" />
       <PopoverPanel
         anchor="bottom start"
         className="mt-2 w-56 rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50"
@@ -134,7 +136,9 @@ export default function MainMenu({ items }: MainMenuProps) {
               return null;
             }
 
-            const isDropdown = item.itemType === "dropdown" || (item.sublinks && item.sublinks.length > 0);
+            const isDropdown =
+              item.itemType === "dropdown" ||
+              (item.sublinks && item.sublinks.length > 0);
 
             if (isDropdown) {
               return (

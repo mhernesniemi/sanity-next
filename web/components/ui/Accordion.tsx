@@ -6,8 +6,17 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-function Accordion({ className, ...props }: React.ComponentProps<typeof AccordionPrimitive.Root>) {
-  return <AccordionPrimitive.Root className={className} data-slot="accordion" {...props} />;
+function Accordion({
+  className,
+  ...props
+}: React.ComponentProps<typeof AccordionPrimitive.Root>) {
+  return (
+    <AccordionPrimitive.Root
+      className={className}
+      data-slot="accordion"
+      {...props}
+    />
+  );
 }
 
 function AccordionItem({
@@ -34,7 +43,7 @@ function AccordionTrigger({
         data-slot="accordion-trigger"
         className={cn(
           "flex flex-1 items-start justify-between gap-4 rounded-md py-4 text-left font-medium transition-all outline-none hover:underline [&[data-state=closed]_.minus-icon]:hidden [&[data-state=closed]_.plus-icon]:block [&[data-state=open]_.minus-icon]:block [&[data-state=open]_.plus-icon]:hidden",
-          className,
+          className
         )}
         {...props}
       >

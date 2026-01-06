@@ -1,6 +1,6 @@
 "use client";
 
-import Heading from "@/components/Heading/Heading";
+import Heading from "@/components/ui/Heading";
 import { cn } from "@/lib/utils";
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
@@ -21,14 +21,20 @@ export type CardProps = {
   className?: string;
 };
 
-export default function Card({ image, title, text, href, className }: CardProps) {
+export default function Card({
+  image,
+  title,
+  text,
+  href,
+  className,
+}: CardProps) {
   if (!href || !title) return null;
 
   return (
     <article
       className={cn(
         "group relative overflow-hidden rounded-lg border border-gray-200 bg-white transition-all duration-300 hover:ring-1 hover:ring-purple-700",
-        className,
+        className
       )}
     >
       <div className="relative h-64 w-full">

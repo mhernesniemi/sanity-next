@@ -20,7 +20,8 @@ export default function Breadcrumbs({
   // Ensure the home link is the first segment rendered.
   const crumbs = [{ label: homeLabel, href: "/" }, ...items];
   // If the current page is hidden, remove the last item from the crumbs.
-  const crumbsToRender = hideCurrentPage && crumbs.length > 1 ? crumbs.slice(0, -1) : crumbs;
+  const crumbsToRender =
+    hideCurrentPage && crumbs.length > 1 ? crumbs.slice(0, -1) : crumbs;
 
   return (
     <nav aria-label="Breadcrumb" className="w-full">
@@ -43,7 +44,12 @@ export default function Breadcrumbs({
                   {item.label}
                 </span>
               ) : (
-                <Link href={item.href} className={cn("text-gray-600 transition-colors hover:text-black")}>
+                <Link
+                  href={item.href}
+                  className={cn(
+                    "text-gray-600 transition-colors hover:text-black"
+                  )}
+                >
                   {item.label}
                 </Link>
               )}
